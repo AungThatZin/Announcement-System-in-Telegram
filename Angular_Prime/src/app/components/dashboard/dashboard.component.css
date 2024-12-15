@@ -1,0 +1,247 @@
+.chart-controls {
+  display: flex;
+  justify-content: start;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.chart-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #4a90e2;
+  background-color: #ffffff;
+  border: 1px solid #4a90e2;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-btn:hover {
+  background-color: #e6f7ff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chart-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.3);
+}
+
+/* Active button style */
+.chart-btn.active {
+  background-color: #4a90e2;
+  border: 1px solid #4a90e2;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.charts-container {
+  display: flex;
+  justify-content: space-between; /* Distributes the space between the charts */
+  margin-top: 20px;
+}
+
+.chart-container {
+  width: 45%; /* Adjust width as needed */
+}
+
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.p-table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+
+.p-table th,
+.p-table td {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  text-align: left;
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.p-table th {
+  background-color: #f4f6f9;
+  font-weight: bold;
+}
+
+.p-table th input {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.p-progressBar {
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+}
+
+.p-progressBar .p-progressbar-value {
+  background-color: #007bff;
+}
+
+.p-table th, .p-table td {
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+
+
+
+.dashboard-container {
+  padding: 20px;
+  background-color: #f4f6f9;
+}
+
+.dashboard-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px;
+  justify-content: center;
+}
+
+.summary-card {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ddd;
+}
+
+.summary-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #e0f2f1, #b9fbc0);
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  color: #4a90e2;
+}
+
+.summary-card h4 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: 600;
+}
+
+.summary-card .content {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.summary-card .count {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .dashboard-summary {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .summary-card {
+    max-width: 100%;
+  }
+}
+
+.current-anno {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.current-anno h3 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.p-table {
+  width: 100%;
+}
+
+.p-table th {
+  background-color: #f4f6f9;
+  font-weight: bold;
+}
+
+.p-table th input {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.p-progressBar {
+  height: 10px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+}
+
+.p-progressBar .p-progressbar-value {
+  background-color: #007bff;
+}
+
+.chart {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.bar-container, .pie-container, .doughnut-container, .user-engagement-container {
+  text-align: center;
+}
+
+.bar-container canvas, 
+.pie-container canvas, 
+.doughnut-container canvas, 
+.user-engagement-container canvas {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+}
+
+@media (max-width: 1024px) {
+  .chart {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .chart {
+    grid-template-columns: 1fr;
+  }
+}

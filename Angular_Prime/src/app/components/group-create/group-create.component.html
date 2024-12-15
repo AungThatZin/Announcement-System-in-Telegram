@@ -1,0 +1,113 @@
+<div class="container mt-5">
+  <div class="row">
+    <!-- Form Container -->
+    <div class="col-md-12">
+      <div class="form-container p-4 shadow rounded bg-white">
+        <h3 class="mb-4 text-center">Create New Group</h3>
+
+        <!-- Group Title -->
+        <div class="form-group mb-4">
+          <label for="groupTitle" class="form-label">Group Title</label>
+          <input type="text" class="form-control" id="groupTitle" [(ngModel)]="groupName" placeholder="Enter group title" required>
+        </div>
+
+        <!-- Card Components: Companies and Groups -->
+        <div class="group-list-container mb-4">
+          <div class="row">
+            <div class="col-md-6" *ngFor="let item of company">
+              <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                  <h5 class="card-title d-flex justify-content-between">
+                    {{ item.name }}
+                    <span class="badge bg-primary">{{ item.department?.length }} Departments</span>
+                  </h5>
+                  <button *ngIf="item.id !== undefined" class="btn btn-outline-primary w-100 mt-2" (click)="displayUsersByCompany(item.id); toggleDepartments(item.id)">
+                    View Departments <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <div [id]="'collapse-' + item.id" [ngClass]="{ 'show': isDepartmentCollapsed(item.id!) }" class="collapse mt-3">
+                    <ul class="department-list list-group">
+                      <li *ngFor="let department of item.department" class="list-group-item">
+                        <button class="btn btn-outline-secondary btn-sm w-100" (click)="displayUsersByDepartmentAndCompany(department.id!, item.id!)">
+                          {{ department.name }} <i class="fas fa-users"></i>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- All Companies Card (shown only for MAIN_HR) -->
+        <div class="card-deck mt-4" *ngIf="userRole === 'MAIN_HR'">
+          <div class="card shadow-sm">
+            <div class="card-body text-center">
+              <h5 class="card-title">All Companies</h5>
+              <button class="btn btn-primary" (click)="displayAllUsers()">
+                View All Users <i class="fas fa-users"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Staff Selection and Group Creation -->
+        <div class="form-group mb-4">
+          <label for="staffSelect" class="form-label">Select Staff Members</label>
+          <select class="form-select" id="staffSelect" name="staff[]" multiple (change)="StaffSelectChange($event)">
+            <option *ngFor="let user of users" [value]="user.id">
+              {{ user.name }} - {{ user.email }} - {{ user.role }} - {{ user.company.name }} - {{ user.department.name }}
+            </option>
+          </select>
+          <input type="text" class="form-control mt-2" id="selectedStaff" [value]="selectStaffDisplay" readonly>
+        </div>
+
+        <div class="text-center mb-4">
+          <button class="btn btn-success btn-lg w-100" (click)="createGroup()">Create Group</button>
+        </div>
+
+        <!-- Created Groups -->
+        <div class="group-list-container mt-5">
+          <h3 class="mb-4">Created Groups</h3>
+          <div class="row">
+            <div class="col-md-6" *ngFor="let group of groups">
+              <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                  <h5 class="card-title d-flex justify-content-between">
+                    {{ group.name }}
+                    <span class="badge bg-success">{{ group.users?.length }} Members</span>
+                  </h5>
+                  <button class="btn btn-outline-primary w-100 mt-2" (click)="toggleStaff(group.id)">
+                    Manage Staff <i class="fas fa-user-edit"></i>
+                  </button>
+
+                  <div class="mt-3">
+                    <label for="staffSelect-{{group.id}}" class="form-label">Add Staff Members</label>
+                    <select class="form-select" id="staffSelect-{{group.id}}" name="staff[]" multiple (change)="StaffSelectedChange($event)">
+                      <option *ngFor="let user of getAvailableUsers(group.id!)" [value]="user.id">
+                        {{user.name}} - {{user.email}} - {{user.role}} - {{user.company.name}} - {{user.department.name}}
+                      </option>
+                    </select>
+                    <input type="text" class="form-control mt-2" id="selectedStaff" [value]="selectedStaffDisplay" readonly>
+                    <div class="text-center mt-3">
+                      <button class="btn btn-submit" (click)="addStaff(group.id!)">Add</button>
+                      <button class="btn btn-danger ms-2" (click)="deleteGroup(group.id!)">Delete</button>
+                    </div>
+                  </div>
+
+                  <div *ngIf="idGroupCollapsed(group.id!)" class="mt-3">
+                    <ul class="list-group">
+                      <li *ngFor="let user of group.users" class="list-group-item">
+                        {{ user.name }} <span class="text-muted">({{ user.email }})</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

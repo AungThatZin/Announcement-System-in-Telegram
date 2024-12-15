@@ -1,0 +1,135 @@
+<div class="dashboard-container">
+  <div class="dashboard-summary">
+    <div class="summary-card">
+      <div class="card-icon">
+        <i class='bx bxs-shopping-bag'></i>
+      </div>
+      <h4>Announcement Summary</h4>
+      <div class="content">
+        <p>Total Announcements</p>
+        <span class="count">{{ announcementCount }}</span>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="card-icon">
+        <i class='bx bxs-user'></i>
+      </div>
+      <h4>User List</h4>
+      <div class="content">
+        <p>Total Users</p>
+        <span class="count">{{ userCount }}</span>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="card-icon">
+        <i class='bx bxs-calendar'></i>
+      </div>
+      <a href="#" routerLink="/upcoming-announce" style="text-decoration: none;">
+        <h4>Upcoming Announcements</h4>
+      </a>
+      <div class="content">
+        <p>Announcements yet to be sent</p>
+        <span class="count">{{ upcomingAnnouncementCount }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-controls">
+    <button 
+      class="chart-btn" 
+      [ngClass]="{'active': chartView === 'monthly'}"
+      (click)="setChartView('monthly')">Monthly</button>
+    <button 
+      class="chart-btn" 
+      [ngClass]="{'active': chartView === 'yearly'}"
+      (click)="setChartView('yearly')">Yearly</button>
+  </div>
+
+  
+  <div class="charts-container">
+    <div class="chart-container">
+      <h5>Total Announcements Sent</h5>
+      <canvas id="totalAnnouncementsChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <h5>Announcements by Department</h5>
+      <canvas id="announcementsByDepartmentChart"></canvas>
+    </div>
+  </div>
+  
+
+
+
+  <div class="current-anno">
+    <h3>Current Announcements</h3>
+    <div class="table-responsive">
+      <p-table #dt [value]="filteredAnnouncements" [paginator]="true" [rows]="5"
+        [globalFilterFields]="['title', 'content', 'userName']">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="title">Title <p-sortIcon field="title"></p-sortIcon></th>
+            <th pSortableColumn="content">Content <p-sortIcon field="content"></p-sortIcon></th>
+            <th pSortableColumn="createdAt">Published Date <p-sortIcon field="createdAt"></p-sortIcon></th>
+            <th pSortableColumn="userName">Sender Name <p-sortIcon field="userName"></p-sortIcon></th>
+            <th>Progress</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <th>
+              <input pInputText type="text" (input)="onFilter($event, 'title')" placeholder="Search by Title" />
+            </th>
+            <th>
+              <input pInputText type="text" (input)="onFilter($event, 'content')" placeholder="Search by Content" />
+            </th>
+            <th>
+              <input pInputText type="text" (input)="onFilter($event, 'createdAt')"
+                placeholder="Search by Published Date" />
+            </th>
+            <th>
+              <input pInputText type="text" (input)="onFilter($event, 'userName')"
+                placeholder="Search by Sender Name" />
+            </th>
+            <th></th>
+            <th></th>
+          </tr>
+        </ng-template>
+  
+        <ng-template pTemplate="body" let-rowData>
+          <tr>
+            <td>{{ rowData.title }}</td>
+            <td>{{ rowData.content }}</td>
+            <td>{{ rowData.createdAt | date: 'shortDate' }}</td>
+            <td>{{ rowData.user.name }}</td>
+            <td>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" [style.width.%]="rowData.progress" aria-valuemin="0"
+                  aria-valuemax="100">{{ rowData.progress }}%</div>
+              </div>
+            </td>
+            <td>
+              <button type="button" class="btn btn-primary" (click)="viewAnnouncement(rowData)">View</button>
+            </td>
+          </tr>
+        </ng-template>
+  
+        <ng-template pTemplate="footer">
+          <tr>
+            <td colspan="6">
+              <div class="p-d-flex p-jc-between">
+                <div>Total Count: {{ announcements.length }}</div>
+                <div>Showing {{ getStartIndex() + 1 }} to {{ getEndIndex() }} of {{ announcements.length }} entries
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+</div>

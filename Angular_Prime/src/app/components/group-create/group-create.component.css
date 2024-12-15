@@ -1,0 +1,59 @@
+.container {
+  max-width: 1200px;
+}
+
+.form-container {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.card {
+  border: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-primary {
+  border-color: #007bff;
+  color: #007bff;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.collapse {
+  transition: max-height 0.5s ease;
+}
+
+.badge {
+  font-size: 14px;
+}
+
+.list-group-item {
+  border: none;
+  padding: 10px 20px;
+}
+
+.list-group-item + .list-group-item {
+  border-top: 1px solid #eee;
+}
+
+.btn-submit {
+  background-color: #28a745;
+  color: white;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.btn-submit:hover {
+  background-color: #218838;
+}
